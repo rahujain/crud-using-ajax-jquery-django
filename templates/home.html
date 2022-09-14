@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}" />
+    <title>Title</title>
+</head>
+<body>
+<div class="container mt=5">
+    <h2 class="text-center alert alert-danger">Django FBV with Ajax jQuery</h2>
+    <div class="row">
+        <div class="col-sm-4">
+    <form action="" method="POST">
+        <h4 class="text-center alert alert-info">Add/update</h4>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="button" class="btn btn-success" id="btnsave" value="submit"></input>
+</form>
+</div>
+        <div class="col-sm-7">
+            <h2 class="Text-center alert alert-info">Show student info</h2>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                {% for st in stu %}
+                <tr>
+                    <td>
+                        {{st.id}}
+                    </td>
+                    <td>{{st.name}}</td>
+                    <td>{{st.email}}</td>
+                    <td>{{st.password</td>
+                    <td>
+                        <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm" value="Edit" />
+                        <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm" value="Delete" />
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+</div>
+
+<script src="{% static 'core/js/bootstrap.js' %}"></script>
+<script src="{% static 'core/js/jquery.js' %}"></script>
+<script src="{% static 'core/js/popper.js' %}"></script>
+{% include 'ajax.html' %}
+</body>
+</html>

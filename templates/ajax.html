@@ -1,0 +1,40 @@
+<script>
+    $("#btnsave").click(function(){
+    console.log("save button clicked");
+    output = "";
+    let nm= $("#nameid").val();
+    let em= $("#emailid").val();
+    let pw= $("#passwordid").val();
+    if(nm == "") {
+        console.log("Please Enter Name");
+    } else if(em == "") {
+        console.log("Please Enter Email");
+    } else if(pw == "") {
+        console.log("Please Enter Password");
+    } else{
+        //console.log(nm);
+        //console.log(em);
+        //console.log(pw);
+        mydata = {name: nm, email: em, password: pw}
+        $.ajax({
+        url:"{% url 'save' %}",
+        method: "POST",
+        data: mydata,
+        success: function (data) {
+           //console.log(data);
+           x = data.student_data;
+           if (data.status == "Save"){
+            alert("form submitted succesfully");
+            for(i=0; i<x.length; i++){
+                output += "<tr><td>" + x[i].id + "</td><td>" + x[i].name + "</td><td>" + x[i].email + "</td><td>" + x[i].password + "</td><td> <input type='button' class='btn btn-warning btn-sm' value='Edit' data-sid=" + x[i].id + "/> <input type='button' class='btn btn-danger btn-sm' value='Delete' data-sid=" + x[i].id + "/></td></tr>";
+            }
+            $("tbody").html(output);
+            $("form")[0].reset();
+           }
+        },
+       });
+      }
+    });
+
+
+</script>
